@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="container">
+    <h1>User List</h1>
+    <ul id="user-list">
+        <!-- JavaScript will populate this list -->
+    </ul>
+
+    <script>
+        // JavaScript to fetch and display user data
+        document.addEventListener('DOMContentLoaded', getUsers);
+
+        function getUsers() {
+            fetch('users.json')
+                .then(response => response.json())
+                .then(users => {
+                    const userList = document.getElementById('user-list');
+                    userList.innerHTML = ''; // Clear existing list
+
+                    users.forEach(user => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${user.Name} - ${user.Email}`;
+                        userList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+    </script>
+</body>
+</html>
